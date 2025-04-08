@@ -33,9 +33,12 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('stock')
                     ->required()
                     ->numeric(),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('description')
+                    ->fileAttachmentsDirectory('products/images')->columnSpanFull()
+                    ->required(),
                 Forms\Components\FileUpload::make('image')
+                    ->label('Product Image')
+                    ->directory('products/thumbnails')
                     ->image(),
             ]);
     }
@@ -47,7 +50,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('IQD')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
                     ->numeric()

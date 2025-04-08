@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
-    protected $garded = [];
+    protected $guarded = [];
 
 
     public function cartItems()
