@@ -14,21 +14,25 @@ class ProductController extends Controller
 
     public function __construct(private ProductService $productService) {}
 
-    public function index()
-    {
-        try {
-            
-            $products = $this->productService->getAll();
-            $data =  ProductResource::Collection($products)->response()->getData(true);
-            return $this->responseSuccess($data, 'Products fetched successfully');
+    public function index(Request $request)
+        {
+            try {
+                $filters = [
+                    'search' => $request->query('search'),
+                    'sort' => $request->query('sort', 'created_at'),
+                    'direction' => $request->query('direction', 'desc'),
+                ];
 
-        } catch (\Exception $e) {
+                $products = $this->productService->getFiltered($filters);
 
-            return $this->responseError($e->getMessage(), 'Error fetching products', 500);
+                $data = ProductResource::collection($products)->response()->getData(true);
 
-        } 
-    }
+                return $this->responseSuccess($data, 'Products fetched successfully');
 
+            } catch (\Exception $e) {
+                return $this->responseError($e->getMessage(), 'Error fetching products', 500);
+            }
+        }
     public function show($id)
     {
         try{

@@ -19,4 +19,13 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function getLogoAttribute($value)
+    {
+        
+        if ($value) {
+            return url('/') . '/storage/' . ltrim($value, '/');
+        }
+        return null;
+    }
 }

@@ -11,9 +11,7 @@ use App\Http\Middleware\GustMiddleware;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 
-// RateLimiter::for('api', function (Request $request) {
-//     return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-// });
+
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

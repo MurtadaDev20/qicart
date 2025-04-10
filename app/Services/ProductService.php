@@ -19,4 +19,9 @@ class ProductService {
     public function getById($id) {
         return $this->productRepo->findById($id);
     }
+
+    public function getFiltered(array $filters)
+    {
+        return $this->productRepo->getFiltered($filters);
+    }
 }
