@@ -22,13 +22,13 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
-            if ($request->is('api/*')) {
+            if ($request->is('api/*', 'api')) {
                 return response()->json([
                     'status' => false,
                     'message' => 'An error occurred',
                     'errors' => "The record does not exist",
                     'data' => []
-                ], 400);
+                ], 404);
             }
         });
     })->create();

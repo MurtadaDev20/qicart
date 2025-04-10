@@ -11,9 +11,10 @@ use App\Http\Middleware\GustMiddleware;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
 
-RateLimiter::for('api', function (Request $request) {
-    return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-});
+// RateLimiter::for('api', function (Request $request) {
+//     return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+// });
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -24,6 +25,14 @@ Route::middleware(['auth:sanctum',])->group(function () {
     // Products
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
+
+    // Cart
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+
+    // Orders
+    Route::post('/orders', [OrderController::class, 'store']);
+
 });
 
 
