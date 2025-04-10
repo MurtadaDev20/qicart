@@ -24,11 +24,7 @@ class OrderController extends Controller
             $order_data = new OrderResource($order);
             return $this->responseSuccess($order_data, 'Order placed successfully');
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Failed to place order.',
-                'error' => $e->getMessage()
-            ], 400);
+            return $this->responseError([],$e->getMessage());
         }
     }
 }
